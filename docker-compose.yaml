@@ -1,0 +1,63 @@
+version: '3.0'
+networks:
+  test:
+
+services:
+  fastify:
+    # image: node:12.18.0
+    build: ./
+    ports: 
+      - 9000:9000
+    volumes:
+      - .:/home/kim/project
+    depends_on:
+      - db
+      - nginx
+    container_name: app-server
+    working_dir: /home/kim/project
+    # command: 
+    #   - node index
+    networks: 
+      - test
+
+  api:
+    # image: node:12.18.0
+    build: ./
+    ports:
+      - 27000:27000
+    volumes:
+      - ./api-server/:/home/kim/api-server
+    depends_on:
+      - db
+      - nginx
+    container_name: api-server
+    working_dir: /home/kim/api-server
+    networks: 
+      - test
+
+  db:
+    image: mongo
+    ports: 
+      - 27017:27017
+    container_name: fdb
+    tty: true
+    networks: 
+      - test
+
+  nginx:
+    image: nginx:1.17.10
+    ports: 
+      - 80:80
+      - 443:443
+    container_name: nginx
+    tty: true
+    depends_on: 
+      - db
+    volumes:
+    #   - /etc/letsencrypt/live:/etc/letsencrypt/live
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: /home/kim/
+    # entrypoint: 
+    #   - cp mydata.nopublisher.dev.conf /etc/nginx/conf.d/
+    networks:
+      - test

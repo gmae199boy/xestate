@@ -1,0 +1,17 @@
+{
+  "name": "api-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^3.2.0",
+    "mongoose": "^5.10.0",
+    "pino-pretty": "^4.1.0"
+  }
+}
