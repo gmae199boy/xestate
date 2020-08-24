@@ -3,22 +3,22 @@ networks:
   test:
 
 services:
-  fastify:
-    # image: node:12.18.0
-    build: ./
-    ports: 
-      - 9000:9000
-    volumes:
-      - .:/home/kim/project
-    depends_on:
-      - db
-      - nginx
-    container_name: app-server
-    working_dir: /home/kim/project
-    # command: 
-    #   - node index
-    networks: 
-      - test
+  # fastify:
+  #   # image: node:12.18.0
+  #   build: ./
+  #   ports: 
+  #     - 9000:9000
+  #   volumes:
+  #     - .:/home/dev/xestate
+  #   depends_on:
+  #     - db
+  #     - nginx
+  #   container_name: app-server
+  #   working_dir: /home/kim/project
+  #   # command: 
+  #   #   - node index
+  #   networks: 
+  #     - test
 
   api:
     # image: node:12.18.0
@@ -26,12 +26,12 @@ services:
     ports:
       - 27000:27000
     volumes:
-      - ./api-server/:/home/kim/api-server
+      - ./api-server/:/home/dev/api-server
     depends_on:
       - db
       - nginx
     container_name: api-server
-    working_dir: /home/kim/api-server
+    working_dir: /home/dev/api-server
     networks: 
       - test
 
@@ -41,7 +41,7 @@ services:
       - 27017:27017
     container_name: fdb
     tty: true
-    networks: 
+    networks:
       - test
 
   nginx:
