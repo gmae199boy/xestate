@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var autoIncrement = require('mongoose-auto-increment');
 
-const PostSchema = new mongoose.Schema({
+const ProductSchema = new mongoose.Schema({
     id: {
         type: Number,
         unique: true,
@@ -24,23 +24,29 @@ const PostSchema = new mongoose.Schema({
     registDealer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Dealer',
+    },
+    progress: {
+        type: String,
+    },
+    blockNumber: {
+        
     }
 });
 
-PostSchema.statics.findByPostName = async function(postName) {
-    return await this.findOne({ name: postName });
+ProductSchema.statics.findByProductName = async function(productName) {
+    return await this.findOne({ name: productName });
 };
 
-PostSchema.statics.findByPostId = async function(postId) {
-    return await this.findOne({ postId });
-}
+ProductSchema.statics.findByProductId = async function(productId) {
+    return await this.findOne({ id: productId });
+};
 
-PostSchema.plugin(autoIncrement.plugin,{
-	model : 'Post',
+ProductSchema.plugin(autoIncrement.plugin, {
+	model : 'Product',
 	field : 'id',
 	startAt : 0, //시작
 	increment : 1 // 증가
 });
 
-const Post = mongoose.model('Post', PostSchema);
-module.exports = Post;
+const Product = mongoose.model('Product', ProductSchema);
+module.exports = Product;

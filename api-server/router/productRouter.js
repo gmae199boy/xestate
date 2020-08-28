@@ -1,10 +1,10 @@
-const {readPost, createPost, deletePost, updatePost} = require('./ctrl/post.ctrl');
+const {readProduct, createProduct, deleteProduct, updateProduct} = require('./ctrl/product.ctrl');
 
 const routes = [
     {
         method: 'GET',
         url: '/post/:id',
-        handler: readPost,
+        handler: readProduct,
     },
 ];
 

@@ -1,4 +1,4 @@
-const Post = require('../../model/post');
+const Product = require('../../model/product');
 // id: {
 //     type: Number,
 //     unique: true,
@@ -23,7 +23,7 @@ const Post = require('../../model/post');
 //     ref: 'Dealer',
 // }
 
-const createPosts = async () => {
+const createProduct = async () => {
     try{
         const one = new Post({
             name: 'one', roomType: 'cash', dealType: '??', price: 10000, address: '청계산',
@@ -34,9 +34,6 @@ const createPosts = async () => {
         const three = new Post({
             name: 'three', roomType: 'card', dealType: '??', price: 10000, address: '집앞'
         });
-        console.log(one);
-        console.log(two);
-        console.log(three);
         await one.save();
         await two.save();
         await three.save();
@@ -46,29 +43,30 @@ const createPosts = async () => {
     }
 }
 
-const readPost = async (req, res) => {
+const readProduct = async (req, res) => {
     try {
-        const firstId = await Post.findByPostId(0);
+        const firstId = await Product.findByProductId(0);
         if (firstId == undefined) {
-            await createPosts();
+            await createProduct();
         }
-        const { post } = await Post.findByPostId(req.params);
-        return post;
+        const product = await Product.findByProductId(req.params.id);
+        console.log(product);
+        return product;
     } catch (e) {
         console.log(e);
     }
 }
 
-const createPost = async (req, res) => {
+const createProduct = async (req, res) => {
     try {
-        const newPost = new Post({...req.body});
-        return newPost.save();
+        const newProduct = new Product({...req.body});
+        return newProduct.save();
     } catch (e) {
         console.log(e);
     }
 }
 
-const deletePost = async (req, res) => {
+const deleteProduct = async (req, res) => {
     try {
 
     } catch (e) {
@@ -76,7 +74,7 @@ const deletePost = async (req, res) => {
     }
 }
 
-const updatePost = async (req, res) => {
+const updateProduct = async (req, res) => {
     try {
 
     } catch (e) {
@@ -84,4 +82,4 @@ const updatePost = async (req, res) => {
     }
 }
 
-module.exports = {readPost, createPost, deletePost, updatePost};
+module.exports = {readProduct, createProduct, deleteProduct, updateProduct};

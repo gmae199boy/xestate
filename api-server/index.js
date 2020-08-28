@@ -2,11 +2,11 @@ const fastify = require('fastify')({
   logger: {
     level: 'info',//info, error, debug, fatal, warn, trace, child
     prettyPrint : true, //에러로그를 pretty 하게 출력하는 놈 // npm install pino-pretty 필요
-    trustProxy: true,
   },
+  trustProxy: true,
 });
 
-const PORT = 27000;
+const PORT = 8080;
 const HOST = '0.0.0.0';
 
 // DB
@@ -26,16 +26,10 @@ db.once('open', function(){
     console.log('MongoDB connection success!');
 });
 
-const postRouter = require('./router/postRouter');
+const productRouter = require('./router/productRouter');
 
-postRouter.forEach(route => {fastify.route(route);});
+productRouter.forEach(route => {fastify.route(route);});
 // fastify.register(indexRouter, {prefix: '/'});
-
-fastify.get('/', (request, reply) => {
-  console.log(request.ip)
-  console.log(request.ips)
-  console.log(request.hostname)
-})
 
 // Run the server!
 const start = async () => {
@@ -51,7 +45,11 @@ start();
 
 
 
-
+// proxy_set_header  Host               $host;
+// proxy_set_header  X-Real-IP          $remote_addr;
+// proxy_set_header  X-Forwarded-Host   $host;
+// proxy_set_header  X-Forwarded-Server $host;
+// proxy_set_header  X-Forwarded-For    $proxy_add_x_forwarded_for;
 
 
 
