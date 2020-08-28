@@ -1,21 +1,47 @@
 const fastify = require('fastify')({ 
   logger: {
-    level: 'error',//info, error, debug, fatal, warn, trace, child
+    level: 'info',//info, error, debug, fatal, warn, trace, child
     prettyPrint : true, //에러로그를 pretty 하게 출력하는 놈 // npm install pino-pretty 필요
+    trustProxy: true,
   },
 });
 
 const PORT = 27000;
 const HOST = '0.0.0.0';
 
-const indexRouter = require('./router/index');
+// DB
+var mongoose = require('mongoose');
 
-fastify.register(indexRouter, {prefix: '/'});
+// index 
+var autoIncrement = require('mongoose-auto-increment');
+mongoose.set('useCreateIndex', true);
+mongoose.connect('mongodb://localhost:27017/xestate', { useNewUrlParser: true,  useUnifiedTopology: true  });
+var db = mongoose.connection;
+autoIncrement.initialize(db);
+
+db.on('error', function(){
+    console.log('MongoDB connection failed!');
+});
+db.once('open', function(){
+    console.log('MongoDB connection success!');
+});
+
+const postRouter = require('./router/postRouter');
+
+postRouter.forEach(route => {fastify.route(route);});
+// fastify.register(indexRouter, {prefix: '/'});
+
+fastify.get('/', (request, reply) => {
+  console.log(request.ip)
+  console.log(request.ips)
+  console.log(request.hostname)
+})
 
 // Run the server!
 const start = async () => {
   try {
     await fastify.listen(PORT, HOST);
+    console.log(`connected at ${HOST}:${PORT}`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
