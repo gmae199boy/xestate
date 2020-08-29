@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
-
+// 아이콘이 엑박으로 뜰 경우
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 import com.android.build.OutputFile
 
 /**
