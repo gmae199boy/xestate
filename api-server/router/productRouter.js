@@ -1,15 +1,45 @@
-const {readProduct, createProduct, deleteProduct, updateProduct} = require('./ctrl/product.ctrl');
+const {
+    readProduct,
+    createProduct,
+    deleteProduct,
+    updateProduct,
+    readProductList,
+} = require('./ctrl/product.ctrl');
 
 const routes = [
+    {
+        method: 'GET',
+        url: '/post',
+        handler: readProductList,
+    },
     {
         method: 'GET',
         url: '/post/:id',
         handler: readProduct,
     },
+    {
+        method: 'POST',
+        url: '/post/create',
+        handler: createProduct,
+    },
+    {
+        method: 'DELETE',
+        url: '/post/:id',
+        handler: deleteProduct,
+    },
+    {
+        method: 'PUT',
+        url: '/post/:id',
+        handler: updateProduct,
+    },
 ];
 
 
 module.exports = routes;
+
+
+
+
 
 
 

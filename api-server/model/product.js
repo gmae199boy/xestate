@@ -12,25 +12,46 @@ const ProductSchema = new mongoose.Schema({
     roomType: {
         type: String,
     },
-    dealType: {
+    saleType: {
         type: String,
     },
-    price: {
+    salePrice: {
+        type: Number,
+    },
+    deposit: {
+        type: Number,
+    },
+    monthlyPrice: {
+        type: Number,
+    },
+    jeonse: {
         type: Number,
     },
     address: {
         type: String,
     },
-    registDealer: {
+    registBroker: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Dealer',
+        ref: 'Broker',
     },
     progress: {
         type: String,
     },
-    blockNumber: {
-        
-    }
+
+    // 필터링용 DB
+    area: {
+        type: String,
+    },
+    nearStation: [
+        {
+            name: {
+                type: String,
+            },
+            walkTime: {
+                type: Number,
+            }
+        }
+    ]
 });
 
 ProductSchema.statics.findByProductName = async function(productName) {
@@ -40,6 +61,24 @@ ProductSchema.statics.findByProductName = async function(productName) {
 ProductSchema.statics.findByProductId = async function(productId) {
     return await this.findOne({ id: productId });
 };
+
+ProductSchema.statics.getProductList = async function( page = 1 ) {
+    const perPage = 20;
+    return await this.find({}, { 
+        _id: 0, 
+        name: 1,
+        roomType: 1,
+        saleType: 1,
+    })
+    .sort({ $natural: 1 })
+    .skip((page - 1) * perPage)
+    .limit(perPage)
+    .lean();
+    // .exec((err, result) => {
+    //     if (err) {console.log(err);return null;}
+    //     return result;
+    // });
+}
 
 ProductSchema.plugin(autoIncrement.plugin, {
 	model : 'Product',

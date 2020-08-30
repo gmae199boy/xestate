@@ -1,38 +1,17 @@
 const Product = require('../../model/product');
-// id: {
-//     type: Number,
-//     unique: true,
-// },
-// name: {
-//     type: String,
-// },
-// roomType: {
-//     type: String,
-// },
-// dealType: {
-//     type: String,
-// },
-// price: {
-//     type: Number,
-// },
-// address: {
-//     type: String,
-// },
-// registDealer: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'Dealer',
-// }
 
-const createProduct = async () => {
+const perPage = 20;
+
+const createProductList = async () => {
     try{
-        const one = new Post({
-            name: 'one', roomType: 'cash', dealType: '??', price: 10000, address: '청계산',
+        const one = new Product({
+            name: 'one', roomType: 'cash', saleType: '??', salePrice: 10000, address: '청계산',
         });
-        const two = new Post({
-            name: 'two', roomType: 'cash', dealType: '??', price: 200, address: '정원',
+        const two = new Product({
+            name: 'two', roomType: 'cash', saleType: '??', salePrice: 200, address: '정원',
         });
-        const three = new Post({
-            name: 'three', roomType: 'card', dealType: '??', price: 10000, address: '집앞'
+        const three = new Product({
+            name: 'three', roomType: 'card', saleType: '??', salePrice: 10000, address: '집앞'
         });
         await one.save();
         await two.save();
@@ -47,7 +26,7 @@ const readProduct = async (req, res) => {
     try {
         const firstId = await Product.findByProductId(0);
         if (firstId == undefined) {
-            await createProduct();
+            await createProductList();
         }
         const product = await Product.findByProductId(req.params.id);
         console.log(product);
@@ -57,10 +36,25 @@ const readProduct = async (req, res) => {
     }
 }
 
+const readProductList = async (req, res) => {
+    try {
+        const firstId = await Product.findByProductId(0);
+        if (firstId == undefined) {
+            await createProductList();
+        }
+        let list = await Product.getProductList();
+        console.log(list);
+        return list;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+}
+
 const createProduct = async (req, res) => {
     try {
         const newProduct = new Product({...req.body});
-        return newProduct.save();
+        return await newProduct.save();
     } catch (e) {
         console.log(e);
     }
@@ -82,4 +76,10 @@ const updateProduct = async (req, res) => {
     }
 }
 
-module.exports = {readProduct, createProduct, deleteProduct, updateProduct};
+module.exports = {
+    readProduct,
+    createProduct,
+    deleteProduct,
+    updateProduct,
+    readProductList,
+};

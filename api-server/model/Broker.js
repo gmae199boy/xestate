@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var autoIncrement = require('mongoose-auto-increment');
 
-const UserSchema = new mongoose.Schema({
+const BrokerSchema = new mongoose.Schema({
     id: {
         type: Number,
         unique: true,
@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
     },
-    latelySeeRoom: [
+    registRoom: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Product',
@@ -20,20 +20,20 @@ const UserSchema = new mongoose.Schema({
     ],
 });
 
-UserSchema.statics.findByProductName = async function(userName) {
-    return await this.findOne({ name: userName });
+BrokerSchema.statics.findByBrokerName = async function(brokerName) {
+    return await this.findOne({ name: brokerName });
 };
 
-UserSchema.statics.findByProductId = async function(userId) {
-    return await this.findOne({ id: userId });
+BrokerSchema.statics.findByBrokerId = async function(brokerId) {
+    return await this.findOne({ id: brokerId });
 };
 
-UserSchema.plugin(autoIncrement.plugin, {
-	model : 'User',
+BrokerSchema.plugin(autoIncrement.plugin, {
+	model : 'Broker',
 	field : 'id',
 	startAt : 0, //시작
 	increment : 1 // 증가
 });
 
-const User = mongoose.model('Product', UserSchema);
-module.exports = User;
+const Broker = mongoose.model('Product', BrokerSchema);
+module.exports = Broker;
