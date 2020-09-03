@@ -8,26 +8,38 @@ import {
   StatusBar,
   PermissionsAndroid,
   Alert,
+  Dimensions,
 } from 'react-native';
 import { createStackNavigator } from "react-navigation-stack";
 import { Button } from 'galio-framework';
-import Login from './Login';
-import Register from './Register';
-
-
+import PostListCard from './PostListCard';
+const { height, width } = Dimensions.get('screen');
 
 const Home = ({navigation}) => {
-    const [post, setPost] = useState([]);
+    const [rooms, setRoom] = useState([]);
 
     useEffect(() => {
         
-    }, [post]);
+    }, [rooms]);
+
+    pressed = function() {
+        fetch("https://blog.nopublisher.dev/rooms")
+        .then((response) => response.json())
+        .then((json) => setRoom(json))
+        .catch((error) => console.error(error));
+    }
 
     return (
         <View style={styles.view} >
             <Text>
                 Home
             </Text>
+            <Button color="info" onPress={pressed} round />
+            <ScrollView contentContainerStyle={{width}}>
+                {rooms && rooms.map((room, id) => (
+                    <PostListCard key={room.name} name={room.name}/>
+                ))}
+            </ScrollView>  
         </View>
     );
 }
