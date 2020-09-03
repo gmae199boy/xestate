@@ -9,7 +9,7 @@ import {
     PermissionsAndroid,
     Alert,
 } from 'react-native';
-import { Button } from 'galio-framework';
+import { Button, Input, Block } from 'galio-framework';
 
 const Login = ({}) => {
     return (
@@ -17,6 +17,8 @@ const Login = ({}) => {
             <Text>
                 Login
             </Text>
+            <Input placeholder="ID" placeholderTextColor={"#3B5998"} />
+            <Input placeholder="password" password viewPass placeholderTextColor={"#3B5998"} />
         </View>
     );
 }
