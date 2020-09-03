@@ -1,3 +1,31 @@
+/**
+ * 
+ * fastify는 옵션으로 json 스키마를 검증하는 기능을 내장하고 있습니다.
+ * 따라서 스키마 검증은 따로 작성합니다.
+ * 서버 사이드 랜더링은 사용하지 않습니다. 
+ * return은 json형식만 반환합니다.
+ * 
+ */
+
+// DB
+import mongoose from 'mongoose';
+// auto increment index
+// import * as autoIncrement from 'mongoose-auto-increment';
+
+// 커스텀 라우터 선언
+import roomRouter from './router/roomRouter';
+import lessorRouter from './router/lessorRouter';
+// const productRouter = require('./router/productRouter');
+// const brokerRouter = require('./router/brokerRouter');
+
+/**
+ * 서버 생성
+ * 
+ * @logger      log를 출력하는지에 대한 여부
+ * @level       logger가 출력하는 로그의 레벨을 지칭함
+ * @prettyPrint logger가 한줄로만 출력되서 예쁘게 출력해 주는 아이
+ * @trustProxy  프록시를 신뢰해주는 아이 
+ */
 const fastify = require('fastify')({ 
   logger: {
     level: 'info',//info, error, debug, fatal, warn, trace, child
@@ -6,18 +34,15 @@ const fastify = require('fastify')({
   trustProxy: true,
 });
 
+// listen port
 const PORT = 8080;
+// listen host
 const HOST = '0.0.0.0';
 
-// DB
-var mongoose = require('mongoose');
-
-// index 
-var autoIncrement = require('mongoose-auto-increment');
 mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb://localhost:27017/xestate', { useNewUrlParser: true,  useUnifiedTopology: true  });
+mongoose.connect('mongodb://172.17.0.3:27017/xestate', { useNewUrlParser: true,  useUnifiedTopology: true  });
 var db = mongoose.connection;
-autoIncrement.initialize(db);
+// autoIncrement.initialize(db);
 
 db.on('error', function(){
     console.log('MongoDB connection failed!');
@@ -26,9 +51,12 @@ db.once('open', function(){
     console.log('MongoDB connection success!');
 });
 
-const productRouter = require('./router/productRouter');
 
-productRouter.forEach(route => {fastify.route(route);});
+
+
+// 커스텀 라우터 등록
+roomRouter.forEach(route => {fastify.route(route);});
+lessorRouter.forEach(route => {fastify.route(route);});
 // fastify.register(indexRouter, {prefix: '/'});
 
 // Run the server!
