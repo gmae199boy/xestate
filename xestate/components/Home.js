@@ -6,13 +6,13 @@ import {
   View,
   Text,
   StatusBar,
-  PermissionsAndroid,
   Alert,
   Dimensions,
 } from 'react-native';
 import { createStackNavigator } from "react-navigation-stack";
 import { Button } from 'galio-framework';
-import PostListCard from './PostListCard';
+import RoomListCard from './RoomListCard';
+
 const { height, width } = Dimensions.get('screen');
 
 const Home = ({navigation}) => {
@@ -37,7 +37,13 @@ const Home = ({navigation}) => {
             <Button color="info" onPress={pressed} round />
             <ScrollView contentContainerStyle={{width}}>
                 {rooms && rooms.map((room, id) => (
-                    <PostListCard key={room.name} name={room.name}/>
+                    <RoomListCard
+                        key={room.id} 
+                        id={room.id}
+                        name={room.name} 
+                        address={room.address}
+                        navigation={navigation}
+                    />
                 ))}
             </ScrollView>  
         </View>

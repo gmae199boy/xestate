@@ -19,6 +19,10 @@ const register = (nav) => {
     nav.navigate('Register');
 }
 
+const registRoom = (nav) => {
+    nav.navigate('RegistRoom');
+}
+
 const Account = ({navigation}) => {
     return (
         <View style={styles.view} >
@@ -27,6 +31,7 @@ const Account = ({navigation}) => {
             </Text>
             <Button onPress={()=>{login(navigation);}}>Login</Button>
             <Button onPress={()=>{register(navigation);}}>Register</Button>
+            <Button onPress={()=>{registRoom(navigation);}}>Regist Room</Button>
         </View>
     );
 }
