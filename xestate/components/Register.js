@@ -19,6 +19,7 @@ const Register = ({}) => {
             </Text>
             <Input placeholder="ID" placeholderTextColor={"#3B5998"} />
             <Input placeholder="password" password viewPass placeholderTextColor={"#3B5998"} />
+            <Input placeholder="Type" placeholderTextColor={"#3B5998"}></Input>
         </View>
     );
 }

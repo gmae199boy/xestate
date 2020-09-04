@@ -18,10 +18,6 @@ import {
   Alert,
 } from 'react-native';
 
-// import Loading from "./component/Loading";
-import Location from "react-native-geolocation-service";
-import Googlemap from "./components/Googlemap";
-import ConfirmButton from "./components/ConfirmButton";
 import 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createAppContainer } from 'react-navigation';

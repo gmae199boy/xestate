@@ -1,19 +1,10 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  PermissionsAndroid,
-  Alert,
-} from 'react-native';
+// import React from 'react';
 import { createStackNavigator } from "react-navigation-stack";
 
 import Account from './Account';
 import Login from './Login';
 import Register from './Register';
+import RegistRoom from './RegistRoom';
 
 const AccountStackPage = createStackNavigator(
 {
@@ -35,6 +26,12 @@ const AccountStackPage = createStackNavigator(
             title: "Register",
         },
     },
+    RegistRoom: {
+        screen: RegistRoom,
+        navigationOptions: {
+            title: "RegisteRoom",
+        },
+    }
 },
 {
     initialRouteName: 'Account',
