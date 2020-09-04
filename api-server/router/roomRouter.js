@@ -4,7 +4,9 @@ import {
     deleteRoom,
     updateRoom,
     readRoomList,
+    reportRoom,
 } from './ctrl/room.ctrl';
+import { createRoomSchema } from './schema/roomSchema';
 
 const routes = [
     {
@@ -16,6 +18,12 @@ const routes = [
         method: 'POST',
         url: '/room/create',
         handler: createRoom,
+        schema: createRoomSchema,
+    },
+    {
+        method: 'POST',
+        url: '/room/report/:id',
+        handler: reportRoom,
     },
     {
         method: 'GET',

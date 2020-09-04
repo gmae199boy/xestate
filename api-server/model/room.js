@@ -8,9 +8,11 @@ const RoomSchema = new mongoose.Schema({
     },
     name: {
         type: String,
+        required: true,
     },
     roomType: {
         type: Number,
+        required: true,
     },
     deposit: {
         type: Number,
@@ -26,11 +28,19 @@ const RoomSchema = new mongoose.Schema({
         ref: 'Lessor',
     },
     progress: {
-        type: String,
-    },
-    reported: {
         type: Number,
     },
+    reported: [
+        {
+            // reportLessee: {
+            //     type: mongoose.Schema.Types.ObjectId,
+            //     ref: 'Lessee',
+            // },
+            reason: {
+                type: String,
+            },
+        }
+    ],
 
     // 필터링용 DB
     area: {
@@ -43,7 +53,7 @@ const RoomSchema = new mongoose.Schema({
             },
             walkTime: {
                 type: Number,
-            }
+            },
         }
     ],
     review: [
@@ -74,9 +84,13 @@ RoomSchema.statics.getRoomList = async function( page = 1 ) {
     const perPage = 20;
     return await this.find({}, { 
         _id: 0, 
+        id: 1,
         name: 1,
         roomType: 1,
-        saleType: 1,
+        deposit: 1,
+        monthlyPayment: 1,
+        address: 1,
+        progress: 1,
     })
     .sort({ $natural: 1 })
     .skip((page - 1) * perPage)
@@ -89,8 +103,10 @@ RoomSchema.statics.getRoomList = async function( page = 1 ) {
 }
 
 RoomSchema.statics.Save = async function(instant) {
+    if(instant.id != undefined) return await instant.save();
+
     let idNum = await this.estimatedDocumentCount({});
-    
+
     instant.id = idNum;
     return await instant.save();
 }

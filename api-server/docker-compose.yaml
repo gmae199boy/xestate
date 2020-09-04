@@ -24,13 +24,13 @@ services:
     # image: node:12.18.0
     build: ./
     ports:
-      - 27000:27000
+      - 8080:8080
     volumes:
-      - ./api-server/:/home/dev/api-server
+      - .:/home/dev/api-server
     depends_on:
       - db
       - nginx
-    container_name: api-server
+    container_name: xestate-api
     working_dir: /home/dev/api-server
     networks: 
       - test
@@ -39,7 +39,7 @@ services:
     image: mongo
     ports: 
       - 27017:27017
-    container_name: fdb
+    container_name: api-db
     tty: true
     networks:
       - test

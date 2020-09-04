@@ -39,6 +39,7 @@ const createRoomList = async () => {
         return true
     } catch (e) {
         console.log(e);
+        return e;
     }
 }
 
@@ -60,6 +61,7 @@ const readRoom = async (req, res) => {
         return room;
     } catch (e) {
         console.log(e);
+        return e;
     }
 }
 
@@ -75,7 +77,7 @@ const readRoomList = async (req, res) => {
         return list;
     } catch (e) {
         console.log(e);
-        return null;
+        return e;
     }
 }
 
@@ -91,6 +93,7 @@ const createRoom = async (req, res) => {
         return await Room.Save(newRoom);
     } catch (e) {
         console.log(e);
+        return e;
     }
 }
 
@@ -110,10 +113,24 @@ const updateRoom = async (req, res) => {
     }
 }
 
+const reportRoom = async (req, res) => {
+    try {
+        let room = await Room.findByRoomId(req.params.id);
+        
+        if (!room) return null;
+        room.reported.push({reason: req.body.reason});
+        return await Room.Save(room);
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
+}
+
 export  {
     readRoom,
     createRoom,
     deleteRoom,
     updateRoom,
     readRoomList,
+    reportRoom,
 };
