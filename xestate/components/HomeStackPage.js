@@ -1,17 +1,8 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  PermissionsAndroid,
-  Alert,
-} from 'react-native';
 import { createStackNavigator } from "react-navigation-stack";
 
 import Home from './Home';
+import RoomPage from './RoomPage';
 
 const HomeStackPage = createStackNavigator(
 {
@@ -21,6 +12,9 @@ const HomeStackPage = createStackNavigator(
             header: null,
         },
     },
+    RoomPage: {
+        screen: RoomPage,
+    }
     // Login: {
     //     screen: Login,
     //     navigationOptions: {
