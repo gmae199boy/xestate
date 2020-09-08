@@ -1,6 +1,6 @@
 import {Room} from '../../model/room';
 import {Lessor} from '../../model/lessor';
-
+import { caver, ABI_JSON, ADDRESS } from '../../caver';
 
 /**
  * 
@@ -59,6 +59,10 @@ const readRoom = async (req, res) => {
         }
         const room = await Room.findByRoomId(req.params.id);
         return room;
+        // let SC = new caver.klay.Contract(ABI_JSON, ADDRESS);
+        // let result = await SC.methods.GetRoom(0).call();
+        // console.log(result);
+        // return result;
     } catch (e) {
         console.log(e);
         return e;
@@ -89,7 +93,27 @@ const createRoom = async (req, res) => {
         //     console.log('브로커가 아니라서 매물 등록을 하지 못합니다 || ' + Lessor);
         //     return null;
         // }
+        //string memory _addr, uint32 _deposit, uint32 _monthly, 
+        //uint8 _progress, uint8 _roomType
+        // 'name',
+        // 'roomType',
+        // 'address',
+        // 'progress',
+        // 'deposit',
+        // 'monthlyPayment',
         const newRoom = new Room({...req.body});
+        let SC = new caver.klay.Contract(ABI_JSON, ADDRESS);
+        let BCResult = await SC.methods.RegistRoom(
+            req.body.address,
+            req.body.deposit,
+            req.body.monthlyPayment,
+            req.body.progress,
+            req.body.roomType,
+        ).send({
+            from: '0x1C314C6A895E2242FAAE8FAa96E93b428AD8EDD1',
+            gas: '3000000',
+        });
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ' + BCResult);
         return await Room.Save(newRoom);
     } catch (e) {
         console.log(e);

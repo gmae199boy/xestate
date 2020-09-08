@@ -18,6 +18,9 @@ import lessorRouter from './router/lessorRouter';
 // const productRouter = require('./router/productRouter');
 // const brokerRouter = require('./router/brokerRouter');
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 /**
  * 서버 생성
  * 
@@ -70,6 +73,10 @@ const start = async () => {
   }
 }
 start();
+
+
+
+
 
 
 
