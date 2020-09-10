@@ -31,7 +31,7 @@ const RoomPage = ({route, navigation}) => {
             <Text> {room.roomType && room.roomType} </Text>
             <Text> {room.deposit && room.deposit} </Text>
             <Text> {room.address && room.address} </Text>
-            <Text> {room.progress && room.progress} </Text>
+            <Text> {room.state && room.state} </Text>
         </View>
     );
 }
