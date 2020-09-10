@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 // import autoIncrement from 'mongoose-auto-increment';
+import jwt from 'jsonwebtoken';
 
 const LessorSchema = new mongoose.Schema({
     id: {
@@ -18,6 +19,9 @@ const LessorSchema = new mongoose.Schema({
             ref: 'Room',
         }
     ],
+    address: {
+        type: String,
+    },
     review: [
         {
             auth: {
@@ -34,20 +38,39 @@ const LessorSchema = new mongoose.Schema({
     ]
 });
 
-LessorSchema.statics.findByBrokerName = async function(lessorName) {
-    return await this.findOne({ name: lessorrName });
-};
+LessorSchema.statics.findByLessorName = async function(lessorName) {
+    return await this.findOne({ name: lessorName });
+}
 
-LessorSchema.statics.findByBrokerId = async function(lessorId) {
+LessorSchema.statics.findByLessorId = async function(lessorId) {
     return await this.findOne({ id: lessorId });
-};
+}
 
 LessorSchema.statics.Save = async function(instant) {
+    if(instant.id != undefined) return await instant.save();
+
     let idNum = await this.estimatedDocumentCount({});
-    
+
     instant.id = idNum;
     return await instant.save();
 }
+
+
+
+LessorSchema.methods.generateToken = function() {
+    const token = jwt.sign(
+        {
+            _id: this.id,
+            name: this.name,
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: '7d',
+        },
+    );
+    return token;
+}
+
 
 // LessorSchema.plugin(autoIncrement.plugin, {
 // 	model : 'Broker',

@@ -1,24 +1,28 @@
 import {
-    readRoom,
-    createRoom,
+    getRoom,
+    registRoom,
     deleteRoom,
     updateRoom,
-    readRoomList,
+    getRoomList,
     reportRoom,
 } from './ctrl/room.ctrl';
-import { createRoomSchema } from './schema/roomSchema';
+import {     
+    getRoomSchema,
+    getRoomListSchema,
+    registRoomSchema, 
+} from './schema/roomSchema';
 
 const routes = [
     {
         method: 'GET',
         url: '/rooms',
-        handler: readRoomList,
+        handler: getRoomList,
     },
     {
         method: 'POST',
         url: '/room/create',
-        handler: createRoom,
-        schema: createRoomSchema,
+        handler: registRoom,
+        schema: registRoomSchema,
     },
     {
         method: 'POST',
@@ -28,7 +32,7 @@ const routes = [
     {
         method: 'GET',
         url: '/room/:id',
-        handler: readRoom,
+        handler: getRoom,
     },
     {
         method: 'DELETE',

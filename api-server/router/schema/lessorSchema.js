@@ -12,24 +12,16 @@
  * 데이터 컨트롤이 용이해진다.
  */
 
-const registRoomSchema = {
+const createLessorSchema = {
     body: {
         type: 'object',
         required: [
             'name',
-            'roomType',
-            'address',
-            'state',
-            'deposit',
-            'monthlyPayment',
+            'password',
         ],
         properties: {
             name: {type: 'string'},
-            roomType: {type: 'integer'},
-            deposit: {type: 'integer'},
-            monthlyPayment: {type: 'integer'},
-            address: {type: 'string'},
-            state: {type: 'integer'},
+            password: {type: 'string'},
         },
     },
     // response: {
@@ -42,20 +34,20 @@ const registRoomSchema = {
     // },
 };
 
-const getRoomSchema = {
+const readLessorSchema = {
     params: {
         id: {type: 'integer'},
     },
 };
 
-const getRoomListSchema = {
+const readLessorListSchema = {
     querystring: {
         page: {type: 'ingeter'},
     },
 }
 
 export { 
-    registRoomSchema,
-    getRoomListSchema,
-    getRoomSchema,
+    createLessorSchema,
+    readLessorListSchema,
+    readLessorSchema,
 };

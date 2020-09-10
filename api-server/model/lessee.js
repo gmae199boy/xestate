@@ -29,8 +29,10 @@ LesseeSchema.statics.findByProductId = async function(lesseeId) {
 }
 
 LesseeSchema.statics.Save = async function(instant) {
+    if(instant.id != undefined) return await instant.save();
+
     let idNum = await this.estimatedDocumentCount({});
-    
+
     instant.id = idNum;
     return await instant.save();
 }

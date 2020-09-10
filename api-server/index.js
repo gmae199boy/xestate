@@ -17,9 +17,11 @@ import roomRouter from './router/roomRouter';
 import lessorRouter from './router/lessorRouter';
 // const productRouter = require('./router/productRouter');
 // const brokerRouter = require('./router/brokerRouter');
+// import _ from './env';
 
-import dotenv from 'dotenv';
-dotenv.config();
+require('dotenv').config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 /**
  * 서버 생성
@@ -36,6 +38,11 @@ const fastify = require('fastify')({
   },
   trustProxy: true,
 });
+
+// fastify.register(require('fastify-cookie'), {
+//   secret: "my-secret", // for cookies signature
+//   parseOptions: {}     // options for parsing cookies
+// })
 
 // listen port
 const PORT = 8080;

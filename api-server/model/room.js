@@ -27,7 +27,7 @@ const RoomSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Lessor',
     },
-    progress: {
+    state: {
         type: Number,
     },
     reported: [
@@ -38,6 +38,9 @@ const RoomSchema = new mongoose.Schema({
             // },
             reason: {
                 type: String,
+            },
+            stars: {
+                type: Number,
             },
         }
     ],
@@ -90,7 +93,7 @@ RoomSchema.statics.getRoomList = async function( page = 1 ) {
         deposit: 1,
         monthlyPayment: 1,
         address: 1,
-        progress: 1,
+        state: 1,
     })
     .sort({ $natural: 1 })
     .skip((page - 1) * perPage)

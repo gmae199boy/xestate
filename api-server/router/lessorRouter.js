@@ -3,13 +3,21 @@ import {
     createLessor,
     deleteLessor,
     updateLessor,
+    loginLessor,
 } from './ctrl/lessor.ctrl';
+import { createLessorSchema } from './schema/lessorSchema';
 
 const routes = [
     {
         method: 'POST',
         url: '/lessor/create',
         handler: createLessor,
+        schema: createLessorSchema,
+    },
+    {
+        method: 'POST',
+        url: '/lessor/login',
+        handler: loginLessor,
     },
     {
         method: 'GET',
