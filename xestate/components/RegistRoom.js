@@ -15,11 +15,11 @@ const RegistRoom = ({}) => {
     const [name, setName] = useState("");
     const [roomType, setRoomType] = useState(0);
     const [address, setAddress] = useState("");
-    const [progress, setProgress] = useState(0);
+    const [state, setState] = useState(0);
 
     useEffect(() => {
         
-    }, [name, roomType, address, progress]);
+    }, [name, roomType, address, state]);
 
     pressed = function() {
         fetch("https://blog.nopublisher.dev/room/create", {
@@ -32,7 +32,7 @@ const RegistRoom = ({}) => {
                 name: name,
                 roomType: roomType,
                 address: address,
-                progress: progress,
+                state: state,
             }),
         });
     }
@@ -45,7 +45,7 @@ const RegistRoom = ({}) => {
             <Input placeholder="name" onChangeText={text => {setName(text)}} placeholderTextColor={"#3B5998"} />
             <Input placeholder="room type" onChangeText={text => {setRoomType(text)}} password viewPass placeholderTextColor={"#3B5998"} />
             <Input placeholder="address" onChangeText={text => {setAddress(text)}} placeholderTextColor={"#3B5998"}></Input>
-            <Input placeholder="progress" onChangeText={text => {setProgress(text)}} placeholderTextColor={"#3B5998"}></Input>
+            <Input placeholder="state" onChangeText={text => {setState(text)}} placeholderTextColor={"#3B5998"}></Input>
             <Button onPress={pressed}>
                 send
             </Button>
