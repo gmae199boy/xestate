@@ -3,7 +3,6 @@ MAINTAINER gmae199boy
 WORKDIR /home/dev/api-server
 COPY . /home/dev/api-server
 # EXPOSE 9000
-# WORKDIR /home/kim/project
 RUN npm install -g nodemon
 RUN npm install
 CMD ["npm", "start"]
