@@ -51,6 +51,7 @@ const HOST = '0.0.0.0';
 const mongodbHost = "xestate-db"
 mongoose.set('useCreateIndex', true);
 // mongoose.connect('mongodb://172.17.0.3:27017/xestate', { useNewUrlParser: true,  useUnifiedTopology: true  });
+// 도커 컨테이너에 접속할 때는 db 컨테이너 이름을 넣으면 된다!!!!
 mongoose.connect(`mongodb://${mongodbHost}:27017/xestate`, { useNewUrlParser: true,  useUnifiedTopology: true  });
 var db = mongoose.connection;
 // autoIncrement.initialize(db);
