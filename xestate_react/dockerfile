@@ -1,5 +1,6 @@
 FROM node:10.16.0
 MAINTAINER gmae199boy
+COPY . /home/dev/xestate_react
 # EXPOSE 9000
 # WORKDIR /home/kim/project
 RUN npm install -g nodemon

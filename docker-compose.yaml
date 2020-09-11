@@ -7,8 +7,8 @@ services:
     build: ./api-server
     ports:
       - 8080:8080
-    volumes:
-      - ./api-server:/home/dev/api-server
+    # volumes:
+    #   - ./api-server:/home/dev/api-server
     depends_on:
       - db
       # - nginx
@@ -30,8 +30,8 @@ services:
     build: ./xestate_react
     ports: 
       - 3000:3000
-    volumes:
-      - ./xestate_react:/home/dev/xestate_react
+    # volumes:
+    #   - ./xestate_react:/home/dev/xestate_react
     depends_on:
       - db
       - api
