@@ -3,6 +3,5 @@ MAINTAINER gmae199boy
 WORKDIR /home/dev/xestate_react
 COPY . /home/dev/xestate_react
 # EXPOSE 9000
-RUN npm install -g nodemon
 RUN npm install
 CMD ["npm", "start"]
