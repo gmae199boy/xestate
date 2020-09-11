@@ -1,7 +1,7 @@
 FROM node:10.16.0
 MAINTAINER gmae199boy
 WORKDIR /home/dev/api-server
-COPY . /home/dev/api-server
+# COPY . /home/dev/api-server
 # EXPOSE 9000
 RUN npm install -g nodemon
 RUN npm install
