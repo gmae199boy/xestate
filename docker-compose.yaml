@@ -28,7 +28,7 @@ services:
 
   react:
     build: ./xestate_react
-    port: 
+    ports: 
       - 3000:3000
     volumes:
       - ./xestate_react:/home/dev/xestate_react
