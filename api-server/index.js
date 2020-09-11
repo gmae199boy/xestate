@@ -9,6 +9,7 @@
 
 // DB
 import mongoose from 'mongoose';
+import ip from 'ip';
 // auto increment index
 // import * as autoIncrement from 'mongoose-auto-increment';
 
@@ -48,9 +49,10 @@ const fastify = require('fastify')({
 const PORT = 8080;
 // listen host
 const HOST = '0.0.0.0';
-
+console.log(ip.address());
 mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb://172.17.0.3:27017/xestate', { useNewUrlParser: true,  useUnifiedTopology: true  });
+// mongoose.connect('mongodb://172.17.0.3:27017/xestate', { useNewUrlParser: true,  useUnifiedTopology: true  });
+mongoose.connect(`mongodb://${ip.address()}/xestate`, { useNewUrlParser: true,  useUnifiedTopology: true  });
 var db = mongoose.connection;
 // autoIncrement.initialize(db);
 
