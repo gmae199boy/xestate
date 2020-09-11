@@ -36,6 +36,7 @@ services:
       - db
       - api
     container_name: xestate-react
+    tty: true
     working_dir: /home/dev/xestate_react
     networks:
       - test
