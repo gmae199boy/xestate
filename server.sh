@@ -4,6 +4,7 @@ PROCESS=$1
 
 if [ "$PROCESS" == "down" ]; then
     docker-compose down
+    echo "$?"
     exit 0
 fi
 

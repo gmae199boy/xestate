@@ -3,33 +3,15 @@ networks:
   test:
 
 services:
-  # fastify:
-  #   # image: node:12.18.0
-  #   build: ./
-  #   ports: 
-  #     - 9000:9000
-  #   volumes:
-  #     - .:/home/dev/xestate
-  #   depends_on:
-  #     - db
-  #     - nginx
-  #   container_name: app-server
-  #   working_dir: /home/kim/project
-  #   # command: 
-  #   #   - node index
-  #   networks: 
-  #     - test
-
   api:
-    # image: node:12.18.0
     build: ./api-server
     ports:
       - 8080:8080
     volumes:
-      - .:/home/dev/api-server
+      - ./api-server:/home/dev/api-server
     depends_on:
       - db
-      - nginx
+      # - nginx
     container_name: xestate-api
     working_dir: /home/dev/api-server
     networks: 
@@ -39,25 +21,40 @@ services:
     image: mongo
     ports: 
       - 27017:27017
-    container_name: api-db
+    container_name: xestate-db
     tty: true
     networks:
       - test
 
-  nginx:
-    image: nginx:1.17.10
-    ports: 
-      - 80:80
-      - 443:443
-    container_name: nginx
-    tty: true
-    depends_on: 
-      - db
+  react:
+    build: ./xestate_react
+    port: 
+      - 3000:3000
     volumes:
-    #   - /etc/letsencrypt/live:/etc/letsencrypt/live
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    working_dir: /home/kim/
-    # entrypoint: 
-    #   - cp mydata.nopublisher.dev.conf /etc/nginx/conf.d/
+      - ./xestate_react:/home/dev/xestate_react
+    depends_on:
+      - db
+      - api
+    container_name: xestate-react
+    working_dir: /home/dev/xestate_react
     networks:
       - test
+
+
+  # nginx:
+  #   image: nginx:1.17.10
+  #   ports: 
+  #     - 80:80
+  #     - 443:443
+  #   container_name: nginx
+  #   tty: true
+  #   depends_on: 
+  #     - db
+  #   volumes:
+  #   #   - /etc/letsencrypt/live:/etc/letsencrypt/live
+  #     - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+  #   working_dir: /home/kim/
+  #   # entrypoint: 
+  #   #   - cp mydata.nopublisher.dev.conf /etc/nginx/conf.d/
+  #   networks:
+  #     - test
