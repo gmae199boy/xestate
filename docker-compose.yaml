@@ -22,7 +22,7 @@ services:
 
   api:
     # image: node:12.18.0
-    build: ./
+    build: ./api-server
     ports:
       - 8080:8080
     volumes:

@@ -25,10 +25,10 @@ contract Xestate {
         string addr;
         uint32 deposit;
         uint32 monthlyPayment;
-        uint8 progress;
+        uint8 state;
         uint8 roomType;
         address[] reported; // 나중에 수정 필
-        uint[] reviewIndex;
+        uint32[] reviewIndex;
     }
     
     // Review Structure
@@ -43,7 +43,7 @@ contract Xestate {
     struct Lessor {
         string name;
         uint32[] registRoom;
-        uint[] reviewIndex;
+        uint32[] reviewIndex;
         uint8[] reported;
     }
     
@@ -84,7 +84,7 @@ contract Xestate {
     
     
     /*
-        constant
+        constants
     */
     
     // 임대인 상수
@@ -94,9 +94,9 @@ contract Xestate {
     uint8 constant LESSEE = 1;
     
     // 
-    uint8 constant ROOM_PROGRESS_BEFORE_RENT = 1;
-    uint8 constant ROOM_PROGRESS_CONTRACTING = 2;
-    uint8 constant ROOM_PROGRESS_RENTING = 4;
+    uint8 constant ROOM_STATE_BEFORE_RENT = 1;
+    uint8 constant ROOM_STATE_CONTRACTING = 2;
+    uint8 constant ROOM_STATE_RENTING = 4;
 
     //
     uint8 constant MAX_STARS = 5;
@@ -145,13 +145,13 @@ contract Xestate {
     // * @param {string} _addr 
     // * @param {uint32} _deposit
     // * @param {uint32} _monthly
-    // * @param {uint8}  _progress
+    // * @param {uint8}  _state
     // * @param {uint8}  _roomType
     // * @return {bool}  success
     // */
     /// 매물을 등록하기 위한 트랜잭션 입니다.
     function RegistRoom(string memory _addr, uint32 _deposit, uint32 _monthly, 
-        uint8 _progress, uint8 _roomType) public returns (bool) {
+        uint8 _state, uint8 _roomType) public returns (bool) {
             
         // require(bytes(lessors[msg.sender].name).length != 0 , "Lessor has not exist");
         Room memory _room = Room({
@@ -159,7 +159,7 @@ contract Xestate {
             addr: _addr,
             deposit: _deposit,
             monthlyPayment: _monthly,
-            progress: _progress,
+            state: _state,
             roomType: _roomType,
             reported: new address[](0),
             reviewIndex: new uint[](0)
