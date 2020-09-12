@@ -39,6 +39,10 @@ const fastify = require('fastify')({
   trustProxy: true,
 });
 
+fastify.register(require('fastify-cors'), { 
+  // put your options here
+})
+
 // fastify.register(require('fastify-cookie'), {
 //   secret: "my-secret", // for cookies signature
 //   parseOptions: {}     // options for parsing cookies

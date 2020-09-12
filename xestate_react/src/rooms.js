@@ -19,7 +19,7 @@ class rooms extends React.Component{
     rooms: []
   };
   getRooms = async () => {
-    const rooms = await axios.get("/rooms");
+    const rooms = await axios.get("http://localhost:8080/rooms");
     console.log(rooms);
     this.setState({ rooms , isLoading: false });
   };
