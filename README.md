@@ -22,6 +22,7 @@
 docker-compose 파일을 실행시킨다. 키 값은 Basic 문자열을 제외한 msdvuASgohw18w7rZSc... 만 넣는다.  
 
 - 키 값을 넣지 않으면 KAS 서버와 통신이 불가하다.  
+- 클라이언트 접속 -> localhost:3000  
 
 # Stop Project
 
