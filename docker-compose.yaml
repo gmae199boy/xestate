@@ -17,9 +17,9 @@ services:
     container_name: xestate-api
     working_dir: /home/dev/api-server
     tty: true
-    entrypoint: 
-      - npm install -g nodemon
-      - npm start
+    command: 
+      - /bin/bash -c npm install -g nodemon
+      - /bin/bash -c npm start
     networks: 
       - test
 
@@ -44,8 +44,8 @@ services:
       - api
     container_name: xestate-react
     tty: true
-    entrypoint: 
-      - npm start
+    command: 
+      - /bin/bash -c npm start
     working_dir: /home/dev/xestate_react
     networks:
       - test
