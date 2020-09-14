@@ -16,7 +16,15 @@ if [ "$PROCESS" == "up" ]; then
     touch ./api-server/.env
     echo "BASIC=\"Basic ${BASIC}\"" >> ./api-server/.env
     docker-compose up -d
-    echo "$?"
+    # 배포 전 image: node:10.16.0 쓸 때
+    if [ ! -d ./api-server/node_modules ]; then
+        cd api-server
+        npm install
+    fi
+    if [ ! -d ./xestate_react/node_modules ]; then
+        cd xestate_react
+        npm install
+    fi
     exit 0
 fi
 

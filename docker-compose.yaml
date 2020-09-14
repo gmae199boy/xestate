@@ -3,17 +3,20 @@ networks:
   test:
 
 services:
+# build 옵션은 배포용, 지금 개발 단계에선 volumes로 대체
   api:
-    build: ./api-server
+    # build: ./api-server
+    image: node:10.16.0
     ports:
       - 8080:8080
-    # volumes:
-    #   - ./api-server:/home/dev/api-server
+    volumes:
+      - ./api-server:/home/dev/api-server
     depends_on:
       - db
       # - nginx
     container_name: xestate-api
     working_dir: /home/dev/api-server
+    tty: true
     networks: 
       - test
 
@@ -27,11 +30,12 @@ services:
       - test
 
   react:
-    build: ./xestate_react
+    # build: ./xestate_react
+    image: node:10.16.0
     ports: 
       - 3000:3000
-    # volumes:
-    #   - ./xestate_react:/home/dev/xestate_react
+    volumes:
+      - ./xestate_react:/home/dev/xestate_react
     depends_on:
       - db
       - api
