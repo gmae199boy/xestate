@@ -18,8 +18,8 @@ services:
     working_dir: /home/dev/api-server
     tty: true
     command: 
-      - /bin/bash -c npm install -g nodemon
-      - /bin/bash -c npm start
+      - "/bin/bash -c 'npm install -g nodemon'"
+      - "/bin/bash -c 'npm start'"
     networks: 
       - test
 
@@ -45,7 +45,7 @@ services:
     container_name: xestate-react
     tty: true
     command: 
-      - /bin/bash -c npm start
+      - "/bin/bash -c 'npm start'"
     working_dir: /home/dev/xestate_react
     networks:
       - test
