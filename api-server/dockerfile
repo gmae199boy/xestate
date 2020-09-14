@@ -1,5 +1,6 @@
 FROM node:10.16.0
 MAINTAINER gmae199boy
+ENV DEVMODE DOCKER
 WORKDIR /home/dev/api-server
 COPY . /home/dev/api-server
 RUN npm install -g nodemon

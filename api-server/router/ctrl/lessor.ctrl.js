@@ -6,6 +6,9 @@ const createLessor = async (req, res) => {
         let account = await createAccount();
 
         const newLessor = new Lessor({...req.body, address: account.result.address});
+        req.session.user = {
+            name: newLessor.name,
+        };
         return await Lessor.Save(newLessor);
     } catch (e) {
         console.log(e);
@@ -34,10 +37,10 @@ const loginLessor = async (req, res) => {
         const lessor = await Lessor.findByLessorName(req.body.name);
         if(lessor.name != req.body.name || lessor.password != req.body.password) 
             return null;
-        const token = lessor.generateToken();
-        res.setCookie('jwt', token, {
-            maxAge: 1000 * 60 * 60 * 24 * 7,
-        });
+
+        req.session.user = {
+            name: lessor.name,
+        };
         return {res};
     } catch (e) {
         console.log(e);

@@ -9,19 +9,18 @@
 
 // DB
 import mongoose from 'mongoose';
+import fastifyCookie from 'fastify-cookie';
+import fastifySession from 'fastify-session';
 // auto increment index
 // import * as autoIncrement from 'mongoose-auto-increment';
 
 // 커스텀 라우터 선언
 import roomRouter from './router/roomRouter';
 import lessorRouter from './router/lessorRouter';
-// const productRouter = require('./router/productRouter');
-// const brokerRouter = require('./router/brokerRouter');
-// import _ from './env';
 
 require('dotenv').config();
-// import dotenv from 'dotenv';
-// dotenv.config();
+
+const DEVMODE = process.env.DEVMODE;
 
 /**
  * 서버 생성
@@ -41,6 +40,10 @@ const fastify = require('fastify')({
 
 fastify.register(require('fastify-cors'), { 
   // put your options here
+});
+fastify.register(fastifyCookie);
+fastify.register(fastifySession, {
+  secret: 'asdasdasdasdasdasdasdasdasdasdas',
 })
 
 // fastify.register(require('fastify-cookie'), {
@@ -52,11 +55,18 @@ fastify.register(require('fastify-cors'), {
 const PORT = 8080;
 // listen host
 const HOST = '0.0.0.0';
-const mongodbHost = "xestate-db"
+const mongodbHost = "xestate-db";
+
 mongoose.set('useCreateIndex', true);
-// mongoose.connect('mongodb://172.17.0.3:27017/xestate', { useNewUrlParser: true,  useUnifiedTopology: true  });
-// 도커 컨테이너에 접속할 때는 db 컨테이너 이름을 넣으면 된다!!!!
-mongoose.connect(`mongodb://${mongodbHost}:27017/xestate`, { useNewUrlParser: true,  useUnifiedTopology: true  });
+
+if(DEVMODE == "HOMESERVER") {
+  //근데 이건 왜 안되지??
+  mongoose.connect('mongodb://172.17.0.3:27017/xestate', { useNewUrlParser: true,  useUnifiedTopology: true  });
+} else if (DEVMODE == "DOCKER") {
+  // 도커 컨테이너에 접속할 때는 db 컨테이너 이름을 넣으면 된다!!!!
+  mongoose.connect(`mongodb://${mongodbHost}:27017/xestate`, { useNewUrlParser: true,  useUnifiedTopology: true  });
+}
+
 var db = mongoose.connection;
 // autoIncrement.initialize(db);
 
