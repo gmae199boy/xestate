@@ -21,6 +21,7 @@ if [ "$PROCESS" == "up" ]; then
         cd api-server
         npm install
     fi
+    cd ..
     if [ ! -d ./xestate_react/node_modules ]; then
         cd xestate_react
         npm install
