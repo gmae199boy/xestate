@@ -14,6 +14,7 @@ fi
 
 if [ "$PROCESS" == "up" ]; then
     touch ./api-server/.env
+    echo "DOCKER=1" >> ./api-server/.env
     echo "BASIC=\"Basic ${BASIC}\"" >> ./api-server/.env
     docker-compose up -d
     echo "$?"
