@@ -1,6 +1,7 @@
-import path from 'path';
-import fs from 'fs';
-import solc from 'solc'; // nodejs solidity compiler 검색
+//SyntaxError: Invalid or unexpected token 에러 > 메모장에 옮긴 뒤 복붙
+const path = require("path");
+const fs = require("fs");
+const solc = require("solc");
 ​
 // compile 할 solidity 파일명과 contract 이름
 const fileName = "Xestate.sol";

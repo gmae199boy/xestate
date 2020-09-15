@@ -28,13 +28,13 @@ contract Xestate {
         uint8 state;
         uint8 roomType;
         address[] reported; // 나중에 수정 필
-        uint32[] reviewIndex;
+        uint[] reviewIndex;
     }
     
     // Review Structure
     struct Review {
         address auth;
-        uint roomIndex;
+        uint64 roomIndex;
         uint8 stars;
         // string reason;
     }
@@ -42,7 +42,7 @@ contract Xestate {
     // Lessor Structure
     struct Lessor {
         string name;
-        uint32[] registRoom;
+        uint64[] registRoom;
         uint32[] reviewIndex;
         uint8[] reported;
     }
@@ -50,12 +50,12 @@ contract Xestate {
     // Lessee Structure
     struct Lessee {
         string name;
-        uint32[] rentRoomList;
+        uint64[] rentRoomList;
     }
     
     // All Room Array
-    mapping (uint => Room) public rooms;
-    uint roomIndex;
+    mapping (uint64 => Room) public rooms;
+    uint64 roomIndex;
     
     // All Review mapping
     mapping (uint => Review) public reviews;
@@ -129,11 +129,11 @@ contract Xestate {
         if(_userType == LESSEE) {
             
             // 기존 가입자 판별은 서버에서 하기 때문에 여기서 따로 하지 않는다
-            Lessee memory _lessee = Lessee(_userName, new uint32[](0));
+            Lessee memory _lessee = Lessee(_userName, new uint64[](0));
             lessees[msg.sender] = _lessee;
             return "lessee signup success";
         } else if (_userType == LESSOR) {
-            Lessor memory _lessor = Lessor(_userName, new uint32[](0), new uint[](0), new uint8[](0));
+            Lessor memory _lessor = Lessor(_userName, new uint64[](0), new uint32[](0), new uint8[](0));
             lessors[msg.sender] = _lessor;
             return "lessor signup success";
         }
@@ -185,17 +185,17 @@ contract Xestate {
     }
     
     // 매물 신고 // 수정
-    function ReportRoom(uint _roomId) public returns (bool) {
+    function ReportRoom(uint64 _roomId) public returns (bool) {
         rooms[_roomId].reported.push(msg.sender);
     }
     
     // 매물 조회
-    function GetRoom(uint _roomId) public view returns (Room memory) {
+    function GetRoom(uint64 _roomId) public view returns (Room memory) {
         return rooms[_roomId];
     }
     
     // 리뷰 조회
-    function GetReviews(uint _roomId) public view returns (Review[] memory) {
+    function GetReviews(uint64 _roomId) public view returns (Review[] memory) {
         Room memory _room = rooms[_roomId];
         Review[] memory _reviews = new Review[](_room.reviewIndex.length);
 
