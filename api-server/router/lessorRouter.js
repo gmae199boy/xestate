@@ -10,7 +10,7 @@ import { createLessorSchema } from './schema/lessorSchema';
 const routes = [
     {
         method: 'POST',
-        url: '/lessor/create',
+        url: '/lessor/signup',
         handler: createLessor,
         schema: createLessorSchema,
     },

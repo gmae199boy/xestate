@@ -41,9 +41,12 @@ const fastify = require('fastify')({
 fastify.register(require('fastify-cors'), { 
   // put your options here
 });
-fastify.register(fastifyCookie);
+fastify.register(fastifyCookie, {
+  secure: false,
+});
 fastify.register(fastifySession, {
   secret: 'asdasdasdasdasdasdasdasdasdasdas',
+  cookie: {secure: false,},
 })
 
 // fastify.register(require('fastify-cookie'), {

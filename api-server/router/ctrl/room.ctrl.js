@@ -59,6 +59,7 @@ const getRoom = async (req, res) => {
             await createRoomList();
         }
         const room = await Room.findByRoomId(req.params.id);
+
         return room;
         // let SC = new caver.klay.Contract(ABI_JSON, ADDRESS);
         // let result = await SC.methods.GetRoom(req.params.id).call();

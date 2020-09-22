@@ -9,6 +9,7 @@ const createLessor = async (req, res) => {
         req.session.user = {
             name: newLessor.name,
         };
+
         return await Lessor.Save(newLessor);
     } catch (e) {
         console.log(e);
